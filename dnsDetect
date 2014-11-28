@@ -1,3 +1,7 @@
+#Used to get a systems DNS server settings
+#requies WMI module for Windows 
+#
+
 import os
 
 def winDNSdetect ():
