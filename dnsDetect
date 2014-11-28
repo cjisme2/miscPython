@@ -1,0 +1,32 @@
+import os
+
+def winDNSdetect ():
+    import wmi
+    c = wmi.WMI ()
+    
+    for interface in c.Win32_NetworkAdapterConfiguration (IPEnabled=1):
+        for ip_address in interface.IPAddress:
+            if interface.DNSServerSearchOrder:
+                print "DNS servers for %s" %ip_address
+                for dns_ips in interface.DNSServerSearchOrder:
+                    print "+--dns server:%s " %dns_ips
+       
+    
+def xDNSdetect():
+    dns_ips = []
+    
+    for line in file('/etc/resolv.conf', 'r'):
+        columns = line.split()
+        if columns[0] == 'nameserver':
+            dns_ips.extend(columns[1:])
+    
+    print "dns server:%s " %dns_ips    
+
+if __name__ == '__main__':
+    if os.name == 'nt':
+        winDNSdetect()
+    elif os.name == 'posix':
+        xDNSdetect()
+    else:
+        print "send DNS request to determine DNS server?"
+        #coming soon
