@@ -146,7 +146,7 @@ Write a short, professional reply to this email. If a reply is not appropriate, 
     response = client.chat.completions.create(
         model="gpt-5-mini",
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.4
+        # temperature=0.4
     )
     reply = response.choices[0].message.content.strip()
     return reply
@@ -170,4 +170,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
     
